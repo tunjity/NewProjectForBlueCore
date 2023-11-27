@@ -15,6 +15,26 @@ namespace NewProject.Domain.Models.FormModel
     {
         public string ClientId { get; set; }
     }
+    public class SubscriptionFormModel : DefualtFormModel
+    {
+        public string marketerId { get; set; }
+        public string tranxid { get; set; }
+    }
+    public class ProductFormModel : DefualtFormModel
+    {
+        public string ProductId { get; set; }
+        public string MarketerId { get; set; }
+    }
+    public class MarketerFormModel : DefualtFormModel
+    {
+        public string MemberId { get; set; }
+    }
+     public class LogFormModel : DefualtFormModel
+    {
+        public string ClientId { get; set; }
+        public string marketerId { get; set; }
+        public string produtid { get; set; }
+    }
     public class CommissionFormModel : DefualtFormModel
     {
         public string BenId { get; set; }

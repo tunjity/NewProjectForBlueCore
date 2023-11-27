@@ -25,7 +25,7 @@ namespace NewProject.Repository.Services
             _repo = repo;
             _mapper = mapper;
         }
-        public Task<ReturnObject> GetAllByCoyIdByclientId(string CoyId, string clientId)
+        Task<ReturnObject> IClientService.GetAllByCoyIdByclientId(string CoyId, string clientId)
         {
             long det1 = 0;
             if (!string.IsNullOrWhiteSpace(clientId))
