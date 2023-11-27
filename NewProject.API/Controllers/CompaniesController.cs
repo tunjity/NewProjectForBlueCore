@@ -41,7 +41,7 @@ namespace NewProject.API.Controllers
         }
         [HttpPost("All")]
         [ProducesResponseType(200, Type = typeof(ReturnObject))]
-        public async Task<IActionResult> GetAll([FromBody] CompanyFormModel obj)
+        public async Task<IActionResult> GetallByCoyIdByPinnacleId([FromBody] CompanyFormModel obj)
         {
             var response = await _productService.GetallByCoyIdByPinnacleId(obj.CoyId,obj.PinnacleId);
             return Ok(response);

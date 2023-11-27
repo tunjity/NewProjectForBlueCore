@@ -11,13 +11,13 @@ namespace NewProject.API.Mapper
         {
           //  CreateMap<CompanyFm, Company>();
             CreateMap<CompanyFm, Company>();
-            //CreateMap<CampaignFm, Campaign>();
-            //CreateMap<ClientFm, Client>();
-            //CreateMap<CommissionFm, Commission>();
-            //CreateMap<LogFm, Log>();
-            //CreateMap<MarketerFm, Marketer>();
-            //CreateMap<ProductFm, Product>();
-            //CreateMap<SubscriptionFm, Subscription>();
+            CreateMap<CampaignFm, Campaign>();
+            CreateMap<ClientFm, Client>();
+            CreateMap<CommissionFm, Commission>();
+            CreateMap<LogFm, Log>();
+            CreateMap<MarketerFm, Marketer>();
+            CreateMap<ProductFm, Product>();
+            CreateMap<SubscriptionFm, Subscription>();
         }
     }
 }

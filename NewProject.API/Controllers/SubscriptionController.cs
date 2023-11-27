@@ -40,7 +40,7 @@ namespace NewProject.API.Controllers
         }
         [HttpPost("All")]
         [ProducesResponseType(200, Type = typeof(ReturnObject))]
-        public async Task<IActionResult> GetAll([FromBody] SubscriptionFormModel obj)
+        public async Task<IActionResult> GetAllByCoyIdBymarketerIdBytranxid([FromBody] SubscriptionFormModel obj)
         {
             var response = await _productService.GetAllByCoyIdBymarketerIdBytranxid(obj.CoyId,obj.marketerId,obj.tranxid);
             return Ok(response);
