@@ -11,7 +11,7 @@ namespace NewProject.Repository.Services
 {
     public interface IProductService
     {
-        ReturnObject Post(ProductFm obj);
+        ReturnObject Post(Product obj);
         ReturnObject Update(ProductFm obj, int Id);
         Task<ReturnObject> GetAllByCoyIdByProductIdByMarketerId(string CoyId, string ProductId, string MarketerId);
     }
@@ -45,7 +45,7 @@ namespace NewProject.Repository.Services
             return Task.FromResult(r);
         }
 
-        public ReturnObject Post(ProductFm obj)
+        public ReturnObject Post(Product obj)
         {
             var r = new ReturnObject();
             r.status = true;

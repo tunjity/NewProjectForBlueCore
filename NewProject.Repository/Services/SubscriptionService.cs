@@ -11,7 +11,7 @@ namespace NewProject.Repository.Services
 {
     public interface ISubscriptionService
     {
-        ReturnObject Post(SubscriptionFm obj);
+        ReturnObject Post(Subscription obj);
         ReturnObject Update(SubscriptionFm obj, int Id);
         Task<ReturnObject> GetAllByCoyIdBymarketerIdBytranxid(string CoyId, string marketerId, string tranxid);
     }
@@ -43,16 +43,15 @@ namespace NewProject.Repository.Services
             return Task.FromResult(r);
         }
 
-        public ReturnObject Post(SubscriptionFm obj)
+        public ReturnObject Post(Subscription obj)
         {
             var r = new ReturnObject();
             r.status = true;
             r.message = "Record saved Successfully";
-            var emp = _mapper.Map<Subscription>(obj);
-            emp.UniqueId = Guid.NewGuid().ToString();
+          
             try
             {
-                _repo.Insert(emp);
+                _repo.Insert(obj);
             }
             catch (Exception ex)
             {

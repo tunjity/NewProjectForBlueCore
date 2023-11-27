@@ -11,8 +11,8 @@ namespace NewProject.Repository.Services
 {
     public interface ILogService
     {
-        ReturnObject Post(CompanyFm obj);
-        ReturnObject Update(CompanyFm obj, int Id);
+        ReturnObject Post(Log obj);
+        ReturnObject Update(LogFm obj, int Id);
         Task<ReturnObject> GetAllByCoyIdByClientIdBymarketerIdByprodutid(string CoyId, string ClientId, string productId, string marketerId);
     }
     public class LogService : ILogService
@@ -48,16 +48,14 @@ namespace NewProject.Repository.Services
             return Task.FromResult(r);
         }
 
-        public ReturnObject Post(CompanyFm obj)
+        public ReturnObject Post(Log obj)
         {
             var r = new ReturnObject();
             r.status = true;
             r.message = "Record saved Successfully";
-            var emp = _mapper.Map<Log>(obj);
-            emp.UniqueId = Guid.NewGuid().ToString();
             try
             {
-                _repo.Insert(emp);
+                _repo.Insert(obj);
             }
             catch (Exception ex)
             {
@@ -67,7 +65,7 @@ namespace NewProject.Repository.Services
             return r;
         }
 
-        public ReturnObject Update(CompanyFm obj, int Id)
+        public ReturnObject Update(LogFm obj, int Id)
         {
             throw new NotImplementedException();
         }
