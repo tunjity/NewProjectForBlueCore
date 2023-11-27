@@ -17,11 +17,13 @@ string? conn = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<NPDbContext>(opt => opt.UseSqlServer(conn));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ICompanyService,CompanyService>();
-//builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
-//builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
-//builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
-//builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
-//builder.Services.AddScoped(CompanyService, ICompanyService);
+builder.Services.AddScoped<IClientService,ClientService>();
+builder.Services.AddScoped<ICampaignService,CampaignService>();
+builder.Services.AddScoped<ICommissionService,CommissionService>();
+builder.Services.AddScoped<ILogService,LogService>();
+builder.Services.AddScoped<IMarketerService,MarketerService>();
+builder.Services.AddScoped<IProductService,ProductService>();
+builder.Services.AddScoped<ISubscriptionService,SubscriptionService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //builder.Services.AddAutoMapper(typeof(Program));
