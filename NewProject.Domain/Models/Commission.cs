@@ -21,4 +21,12 @@ namespace NewProject.Domain.Models
         public string TranxAmount { get; set; }
         public string Description { get; set; }
     }
+
+     public class CommissionFmUpdate
+    {
+        public string TranxBy { get; set; }
+        public long BenId { get; set; }
+        public string TranxAmount { get; set; }
+        public string Description { get; set; }
+    }
 }

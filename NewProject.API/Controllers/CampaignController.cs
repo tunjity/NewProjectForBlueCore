@@ -6,6 +6,7 @@ using NewProject.Domain.Models;
 using NewProject.Domain;
 using NewProject.Repository.Services;
 using static NewProject.Utility.AllEnum;
+using Microsoft.EntityFrameworkCore;
 
 namespace NewProject.API.Controllers
 {
@@ -13,18 +14,20 @@ namespace NewProject.API.Controllers
     [ApiController]
     public class CampaignController : ControllerBase
     {
+        private readonly NPDbContext _context;
         private readonly ICampaignService _productService;
 
         private readonly IMapper _mapper;
-        public CampaignController(ICampaignService productService, IMapper mapper)
+        public CampaignController(ICampaignService productService, NPDbContext context, IMapper mapper)
         {
             _productService = productService;
+            _context = context;
             _mapper = mapper;
         }
 
         [HttpPost("Add")]
         [ProducesResponseType(200, Type = typeof(ReturnObject))]
-        public async Task<IActionResult> Add(CampaignFm param)
+        public IActionResult Add(CampaignFm param)
         {
             var emp = _mapper.Map<Campaign>(param);
             emp.UniqueId = Guid.NewGuid().ToString();
@@ -33,16 +36,16 @@ namespace NewProject.API.Controllers
         }
         [HttpPut("Update/{id}")]
         [ProducesResponseType(200, Type = typeof(ReturnObject))]
-        public async Task<IActionResult> Update([FromBody] CampaignFm param, [FromRoute] int id)
+        public IActionResult Update([FromBody] CampaignUpdateFm param, [FromRoute] int id)
         {
-            var response = _productService.Update(param, id);
+              var response = _productService.Update(param,id);
             return Ok(response);
         }
         [HttpPost("All")]
         [ProducesResponseType(200, Type = typeof(ReturnObject))]
         public async Task<IActionResult> GetAllByCoyIdByProductIdByCamapagnid([FromBody] CampaignFormModel obj)
         {
-            var response = await _productService.GetAllByCoyIdByProductIdByCamapagnid(obj.CoyId, obj.ProductId,obj.Camapagnid);
+            var response = await _productService.GetAllByCoyIdByProductIdByCamapagnid(obj.CoyId, obj.ProductId, obj.Camapagnid);
             return Ok(response);
         }
 

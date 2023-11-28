@@ -33,7 +33,7 @@ namespace NewProject.API.Controllers
         }
         [HttpPut("Update/{id}")]
         [ProducesResponseType(200, Type = typeof(ReturnObject))]
-        public async Task<IActionResult> Update([FromBody]CommissionFm param, [FromRoute]int id)
+        public async Task<IActionResult> Update([FromBody]CommissionFmUpdate param, [FromRoute]int id)
         {
             var response =  _productService.Update(param,id);
             return Ok(response);

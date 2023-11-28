@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,11 +15,18 @@ namespace NewProject.Domain.Models
         public string Pictures { get; set; }
         public long MarketerId { get; set; }
     }
+    public class ProductFmUpdate
+    {
+        public string Description { get; set; }
+        public IFormFile ProductImage { get; set; }
+        public long MarketerId { get; set; }
+    }
+
     public class ProductFm
     {
         public long CoyId { get; set; }
         public string Description { get; set; }
-        public string Pictures { get; set; }
+        public IFormFile ProductImage { get; set; }
         public long MarketerId { get; set; }
     }
 }

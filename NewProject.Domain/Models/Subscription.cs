@@ -23,5 +23,13 @@ namespace NewProject.Domain.Models
         public string SubAmount { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime ExpiryDate { get; set; }
+    }  
+    public class SubscriptionFmUpdate
+    {
+        public string TranxId { get; set; }
+        public long MarketerId { get; set; }
+        public string SubAmount { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime ExpiryDate { get; set; }
     }
 }

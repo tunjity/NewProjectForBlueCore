@@ -23,4 +23,12 @@ namespace NewProject.Domain.Models
         public string Email { get; set; }
         public string DOB { get; set; }
     }
+
+     public class ClientFmUpdate
+    {
+        public string ClientName { get; set; }
+        public string MobileNo { get; set; }
+        public string Email { get; set; }
+        public string DOB { get; set; }
+    }
 }

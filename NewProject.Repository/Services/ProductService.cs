@@ -6,22 +6,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using NewProject.Utility;
 
 namespace NewProject.Repository.Services
 {
     public interface IProductService
     {
         ReturnObject Post(Product obj);
-        ReturnObject Update(ProductFm obj, int Id);
+        ReturnObject Update(ProductFmUpdate obj, int Id);
         Task<ReturnObject> GetAllByCoyIdByProductIdByMarketerId(string CoyId, string ProductId, string MarketerId);
     }
     public class ProductService : IProductService
     {
+        private readonly NPDbContext _context;
+
         private string errMsg = "An Error Occured";
         private readonly IMapper _mapper;
         private readonly IRepository<Product> _repo;
-        public ProductService(IRepository<Product> repo, IMapper mapper)
+        public ProductService(NPDbContext context, IRepository<Product> repo, IMapper mapper)
         {
+            _context = context;
             _repo = repo;
             _mapper = mapper;
         }
@@ -64,9 +69,27 @@ namespace NewProject.Repository.Services
             return r;
         }
 
-        public ReturnObject Update(ProductFm obj, int Id)
+        public ReturnObject Update(ProductFmUpdate obj, int Id)
         {
-            throw new NotImplementedException();
+            var r = new ReturnObject();
+            r.status = true;
+            r.message = "Record saved Successfully";
+            try
+            {
+                string image = Helper.GetBase64StringForImage(obj.ProductImage);
+                
+                _context.Products.Where(b => b.Id == Id)
+                .ExecuteUpdate(setters => setters.SetProperty(b => b.Description, obj.Description)
+               .SetProperty(b => b.Pictures, image)
+              .SetProperty(b => b.MarketerId, obj.MarketerId));
+            }
+            catch (Exception ex)
+            {
+                r.status = false;
+                r.message = errMsg + $"{ex.Message}";
+            }
+            return r;
         }
     }
 }
+

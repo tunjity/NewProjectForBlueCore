@@ -27,5 +27,11 @@ namespace NewProject.Domain.Models
         public string LastResponseId { get; set; }
         public DateTime LastCampDate { get; set; }
     }
+    public class LogFmUpdate
+    {
+        public long ClientId { get; set; }
+        public long MarketerId { get; set; }
+        public long ProducId { get; set; }
+   }
 }   
 

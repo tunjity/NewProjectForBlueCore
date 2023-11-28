@@ -28,4 +28,13 @@ namespace NewProject.Domain.Models
         public string Position { get; set; }
         public string DaysAfter { get; set; }
     }
+
+    public class CampaignUpdateFm
+    {
+        public long ProductId { get; set; }
+        public string CampaignType { get; set; }
+        public string Content { get; set; }
+        public string Position { get; set; }
+        public string DaysAfter { get; set; }
+    }
 }

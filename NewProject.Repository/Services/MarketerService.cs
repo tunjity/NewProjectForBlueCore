@@ -6,23 +6,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace NewProject.Repository.Services
 {
     public interface IMarketerService
     {
         ReturnObject Post(Marketer obj);
-        ReturnObject Update(MarketerFm obj, int Id);
+        ReturnObject Update(MarketerFmUpdate obj, int Id);
         Task<ReturnObject> GetAllByCoyIdByMemberId(string CoyId, string memberId);
     }
     public class MarketerService : IMarketerService
-    {
+    {        private readonly NPDbContext _context;
         private string errMsg = "An Error Occured";
         private readonly IMapper _mapper;
         private readonly IRepository<Marketer> _repo;
-        public MarketerService(IRepository<Marketer> repo, IMapper mapper)
+        public MarketerService(IRepository<Marketer> repo,NPDbContext context, IMapper mapper)
         {
             _repo = repo;
+            _context = context;
             _mapper = mapper;
         }
         public Task<ReturnObject> GetAllByCoyIdByMemberId(string CoyId, string memberId)
@@ -56,9 +58,35 @@ namespace NewProject.Repository.Services
             return r;
         }
 
-        public ReturnObject Update(MarketerFm obj, int Id)
+        public ReturnObject Update(MarketerFmUpdate obj, int Id)
         {
-            throw new NotImplementedException();
+             var r = new ReturnObject();
+            r.status = true;
+            r.message = "Record saved Successfully";
+            try
+            {
+                _context.Marketers.Where(b => b.Id == Id)
+                .ExecuteUpdate(setters => setters.SetProperty(b => b.F1, obj.F1)
+               .SetProperty(b => b.F2, obj.F2)
+               .SetProperty(b => b.F3, obj.F3)
+               .SetProperty(b => b.F4, obj.F4)
+               .SetProperty(b => b.F5, obj.F5)
+               .SetProperty(b => b.MobileNo, obj.MobileNo)
+               .SetProperty(b => b.Email, obj.Email)
+               .SetProperty(b => b.DateOfBirth, obj.DateOfBirth)
+               .SetProperty(b => b.Gender, obj.Gender)
+               .SetProperty(b => b.Address, obj.Address)
+               .SetProperty(b => b.State, obj.State)
+               .SetProperty(b => b.ExpiryDate, obj.ExpiryDate)
+               .SetProperty(b => b.Plan, obj.Plan)
+              .SetProperty(b => b.Country, obj.Country));
+            }
+            catch (Exception ex)
+            {
+                r.status = false;
+                r.message = errMsg + $"{ex.Message}";
+            }
+            return r;
         }
     }
 }

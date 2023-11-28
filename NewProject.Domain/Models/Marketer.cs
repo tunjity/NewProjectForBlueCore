@@ -49,4 +49,21 @@ namespace NewProject.Domain.Models
         public string Plan { get; set; }
         public string CommBal { get; set; }
     }
+    public class MarketerFmUpdate
+    {
+        public string F1 { get; set; }
+        public string F2 { get; set; }
+        public string F3 { get; set; }
+        public string F4 { get; set; }
+        public string F5 { get; set; }
+        public string MobileNo { get; set; }
+        public string Email { get; set; }
+        public string DateOfBirth { get; set; }
+        public string Gender { get; set; }
+        public string Address { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
+        public string ExpiryDate { get; set; }
+        public string Plan { get; set; }
+     }
 }

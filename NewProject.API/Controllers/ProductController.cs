@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewProject.Domain;
+using NewProject.Utility;
 using NewProject.Domain.Models;
 using NewProject.Domain.Models.FormModel;
 using NewProject.Repository.Services;
@@ -24,16 +25,18 @@ namespace NewProject.API.Controllers
 
         [HttpPost("Add")]
         [ProducesResponseType(200, Type = typeof(ReturnObject))]
-        public async Task<IActionResult> Add(ProductFm param)
+        public async Task<IActionResult> Add([FromForm]ProductFm param)
         {
+            string image = Helper.GetBase64StringForImage(param.ProductImage);
             var emp = _mapper.Map<Product>(param);
             emp.UniqueId = Guid.NewGuid().ToString();
+            emp.Pictures = image;                       
             var response = _productService.Post(emp);
             return Ok(response);
         }
         [HttpPut("Update/{id}")]
         [ProducesResponseType(200, Type = typeof(ReturnObject))]
-        public async Task<IActionResult> Update([FromBody]ProductFm param, [FromRoute]int id)
+        public async Task<IActionResult> Update([FromBody]ProductFmUpdate param, [FromRoute]int id)
         {
             var response =  _productService.Update(param,id);
             return Ok(response);

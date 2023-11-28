@@ -6,23 +6,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace NewProject.Repository.Services
 {
     public interface ICommissionService
     {
         ReturnObject Post(Commission obj);
-        ReturnObject Update(CommissionFm obj, int Id);
+        ReturnObject Update(CommissionFmUpdate param, int id);
         Task<ReturnObject> GetAllByCoyIdByBenId(string CoyId, string BenId);
     }
     public class CommissionService : ICommissionService
     {
+        private readonly NPDbContext _context;
         private string errMsg = "An Error Occured";
         private readonly IMapper _mapper;
         private readonly IRepository<Commission> _repo;
-        public CommissionService(IRepository<Commission> repo, IMapper mapper)
+        public CommissionService(IRepository<Commission> repo, NPDbContext context, IMapper mapper)
         {
             _repo = repo;
+            _context = context;
             _mapper = mapper;
         }
         public Task<ReturnObject> GetAllByCoyIdByBenId(string CoyId, string BenId)
@@ -44,7 +47,7 @@ namespace NewProject.Repository.Services
             var r = new ReturnObject();
             r.status = true;
             r.message = "Record saved Successfully";
-           
+
             try
             {
                 _repo.Insert(obj);
@@ -57,9 +60,25 @@ namespace NewProject.Repository.Services
             return r;
         }
 
-        public ReturnObject Update(CommissionFm obj, int Id)
+        public ReturnObject Update(CommissionFmUpdate param, int id)
         {
-            throw new NotImplementedException();
+            var r = new ReturnObject();
+            r.status = true;
+            r.message = "Record saved Successfully";
+            try
+            {
+                _context.Commissions.Where(b => b.Id == id)
+                .ExecuteUpdate(setters => setters.SetProperty(b => b.TranxBy, param.TranxBy)
+               .SetProperty(b => b.TranxAmount, param.TranxAmount)
+              .SetProperty(b => b.BenId, param.BenId)
+               .SetProperty(b => b.Description, param.Description));
+            }
+            catch (Exception ex)
+            {
+                r.status = false;
+                r.message = errMsg + $"{ex.Message}";
+            }
+            return r;
         }
     }
 }
